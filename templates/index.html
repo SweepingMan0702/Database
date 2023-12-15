@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    <h1>User List</h1>
+    
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/user" onsubmit="addUser(event)">
+      <label for="username">用戶名：</label>
+      <input type="text" id="username" name="username" required>
+      <label for="password">密碼：</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">添加用戶</button>
+  </form>
+
+  <!-- 刪除 -->
+  <h1>User List</h1>
+    
+  <ul id="userList">
+      {% for user in users %}
+          <li>
+              {{ user.username }}
+              <button onclick="deleteUser('{{ user.id }}')">Delete</button>
+          </li>
+      {% endfor %}
+  </ul>
+
+  <button onclick = "reset()">刷新清單</button>
+  
+  <script>
+        function addUser(event) {
+          event.preventDefault();
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          fetch('/user', {method: 'POST',
+              headers: {'Content-Type': 'application/json',},
+              body: JSON.stringify({ username, password }),
+          })
+          .then(response => {
+                if (response.ok) {
+                    location.reload();
+                    location.reload();
+                    location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}
+
+      function deleteUser(userId) {
+            // 使用 JavaScript 發送 DELETE 請求
+            fetch(`/user/${userId}`, {method: 'DELETE',})
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                    location.reload();
+                    location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}
+
+      function reset(){
+        location.reload();
+      }
+
+  </script>
+  
+  
+</body>
+</html>
