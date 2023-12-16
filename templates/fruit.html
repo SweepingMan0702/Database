@@ -7,36 +7,30 @@
     <title>User List</title>
 </head>
 <body>
-    <h1>User List</h1>
+    <h1>Fruit List8926</h1>
     
-    <ul>
-        {% for user in users %}
-            <li>{{ user.username }}</li>
+    <ul id="fruitList">
+        {% for fruit in fruits %}
+            <li>{{ fruit.ID }} - {{ fruit.F_name}}</li>
         {% endfor %}
     </ul>
 
-    <form method="POST" action="/user" onsubmit="addUser(event)">
-      <label for="username">用戶名：</label>
-      <input type="text" id="username" name="username" required>
-      <label for="password">密碼：</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">添加用戶</button>
-  </form>
-
-  <!-- 刪除 -->
-  <h1>User List</h1>
-    
-  <ul id="userList">
-      {% for user in users %}
-          <li>
-              {{ user.username }}
-              <button onclick="deleteUser('{{ user.id }}')">Delete</button>
-          </li>
-      {% endfor %}
-  </ul>
-
+    <form method="POST" action="/fruit" onsubmit="addFruit(event)">
+        <label for="F_name">水果名稱：</label>
+        <input type="text" id="F_name" name="F_name" required>
+        <label for="Quantity">數量：</label>
+        <input type="number" id="Quantity" name="Quantity" required>
+        <label for="Unit">單位：</label>
+        <input type="text" id="Unit" name="Unit" required>
+        <label for="Cost">成本：</label>
+        <input type="number" id="Cost" name="Cost" step="0.01" required>
+        <label for="TotalValue">總價值：</label>
+        <input type="number" id="TotalValue" name="TotalValue" step="0.01" required>
+        <button type="submit">添加水果</button>
+    </form>
   <button onclick = "reset()">刷新清單</button>
-  
+</body>
+
   <script>
         function addUser(event) {
           event.preventDefault();
@@ -78,5 +72,5 @@
   </script>
   
   
-</body>
+
 </html>

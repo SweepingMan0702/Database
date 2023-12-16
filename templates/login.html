@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水果購買登入系統</title>
+  <style>
+  body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-size: 1.25em;
+  background-image: url('https://img95.699pic.com/element/40141/7404.png_300.png'); /* 替換 'path/to/your/image.jpg' 為你的圖片路徑 */
+  background-size: cover;; /* 使圖片覆蓋整個背景 */
+  background-position: center; /* 將圖片置中 */
+  background-repeat: no-repeat; /* 防止圖片重複 */
+  filter: saturate(30%);
+  
+}
+
+    .login_page {
+      text-align: center;
+      transform: scale(1.5); /* 調整放大倍數 */
+    }
+
+    #container1 {
+      width: 300px; /* Set a fixed width for the container */
+    }
+
+    .login {
+      /* border: 1px solid #ccc; */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: none
+    }
+    .login input {
+  margin: 0.8em 0; 
+}
+
+
+
+.login input#username {
+  margin-top: -30px;   
+}
+
+
+
+    /* Add any additional styles as needed */
+
+    h2 {
+      text-align: center;
+    }
+
+    #login-failure {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="login_page">
+    <div id="container1">
+
+      <div class="login">    
+        
+        <h3>水果系統登入test</h3>
+
+        <form onsubmit="return validateForm()">
+          <input type="text" id="username" name="username" placeholder="帳號" required>
+          <div class="tab"></div>
+          <input type="password" id="password" name="password" placeholder="密碼" required>
+          <div class="tab"></div>
+          <input type="submit" value="登入" class="submit">
+        </form>
+
+        <p id="login-failure"></p>
+
+        <script>
+          
+          function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+
+            // Example: Check if username and password are correct (you would usually do this on the server)
+            if (username === '002' && password === '002') {
+              // return true; // Successful login
+              window.location.href = '/fruit'
+              return false;
+            } else {
+              
+              document.getElementById('login-failure').innerText = '登入失敗，請檢查帳號和密碼';
+              return false; // Prevent form submission
+            }
+          }
+        </script>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
