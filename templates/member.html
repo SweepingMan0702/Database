@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>會員資料表</title>
   <style>
+    #modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
     table {
       border-collapse: collapse;
       width: 50%;
@@ -69,9 +80,6 @@
   </style>
 </head>
 <body>
-  
-
-  <h1>Member List</h1>
 
   <table>
     <!-- 第一列 -->
@@ -108,18 +116,53 @@
 
   <button onclick="showRecord(currentRecord - 1)">上一筆</button>
   <button onclick="showRecord(currentRecord + 1)">下一筆</button>
-  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="openModal()" class="blue">新增</button>
   <button onclick="deleteRecord()" class="red">刪除</button>
   <button onclick="searchRecord()">查詢</button>
   <button onclick="updateRecord()" class="green">修改</button>
   <button onclick="goBack()" class="goBack">返回查詢頁面</button>
   <canvas id="photoCanvas"></canvas>
 
-  <script>
 
+  <!-- 新增資料的小視窗 -->
+  <div id="modal">
+    <label for="供應商統一編號">供應商統一編號：</label>
+    <input type="text" id="供應商統一編號">
+    <br>
+    <label for="水果供應商名稱">水果供應商名稱：</label>
+    <input type="text" id="水果供應商名稱">
+    <br>
+    <label for="電話">電話：</label>
+    <input type="text" id="電話">
+    <br>
+    <label for="Email">Email：</label>
+    <input type="text" id="Email">
+    <br>
+    <label for="住址">地址：</label>
+    <input type="text" id="住址">
+    <br>
+    <label for="負責人姓名">負責人姓名：</label>
+    <input type="text" id="負責人姓名">
+    <br>
+    <button onclick="updateData()">更新</button>
+    <button onclick="closeModal()">取消</button>
+  </div>
+
+
+
+  <script>
+    //新增的按鈕
+    function openModal() {
+      document.getElementById('modal').style.display = 'block';
+    }
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+  
     //資料顯示 
     var currentRecord = 0;
-    var members = {{ members|tojson|safe }};
+    var members = {{ members | tojson | safe}}
+    console.log(members);
     function showRecord(index) {
         var member = members[index];
         if (member) {
@@ -133,6 +176,7 @@
             currentRecord = index; // Update the current record index
         }
     }
+
     showRecord(currentRecord);
 
     function addRecord() {
@@ -155,14 +199,15 @@
       window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
     }
     var canvas = document.getElementById('photoCanvas');
-var ctx = canvas.getContext('2d');
-var img = new Image();
-img.src = 'https://mood-ettoday.cdn.hinet.net/B/rs:fill:1200/sm:1/plain/https%3A%2F%2Fmoodstatic-ettoday.cdn.hinet.net%2F95ca1251-a377-41a8-8a0e-c1ae235c3b07.jpg'; // 替換為實際照片的路徑
-img.onload = function() {
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.src = 'https://mood-ettoday.cdn.hinet.net/B/rs:fill:1200/sm:1/plain/https%3A%2F%2Fmoodstatic-ettoday.cdn.hinet.net%2F95ca1251-a377-41a8-8a0e-c1ae235c3b07.jpg'; // 替換為實際照片的路徑
+    img.onload = function() {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 };
 
-  </script>
 
+
+  </script>
 </body>
 </html>

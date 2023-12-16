@@ -74,16 +74,16 @@ class Member(db.Model):
     Photo = db.Column(db.LargeBinary)
     Discount = db.Column(db.Numeric(3, 2))
 
-    # def __init__(self, MemberID, Name, Phone, Mobile, Email, LineStatus, Address, Age, Photo, Discount):
-    #     self.MemberID = MemberID
-    #     self.Name = Name
-    #     self.Phone = Phone
-    #     self.Mobile = Mobile
-    #     self.Email = Email
-    #     self.LineStatus = LineStatus
-    #     self.Address = Address
-    #     self.Age = Age
-    #     self.Photo = Photo
-    #     self.Discount = Discount
+    def __init__(self, MemberID, Name, Phone, Mobile, Email, LineStatus, Address, Age, Photo, Discount):
+        self.MemberID = MemberID
+        self.Name = Name
+        self.Phone = Phone
+        self.Mobile = Mobile
+        self.Email = Email
+        self.LineStatus = LineStatus
+        self.Address = Address
+        self.Age = Age
+        self.Photo = Photo
+        self.Discount = Discount
 
 

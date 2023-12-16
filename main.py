@@ -62,7 +62,6 @@ def deleteUser(id):
 @app.route('/member', methods=["GET"])
 def getMembers():
     member = Member.query.all()
-    print(member)
     return render_template('member.html', members=member)
 
 # @app.route('/fruit', methods = ["POST"])
