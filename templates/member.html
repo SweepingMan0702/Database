@@ -223,13 +223,24 @@
 
     showRecord(currentRecord);
 
-    function addRecord() {
-      alert("執行新增操作");
-    }
-
+//刪除按鈕
     function deleteRecord() {
-      alert("執行刪除操作");
-    }
+      if (members && members.length > 0) {
+        var memberId = members[currentRecord].MemberID; // 使用當前索引處的 MemberID
+        console.log(memberId);
+        alert("執行刪除操作");
+
+        fetch(`/member/${memberId}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              location.reload();
+              location.reload();
+              location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}}
 
     function searchRecord() {
       alert("執行查詢操作");

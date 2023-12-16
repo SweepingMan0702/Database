@@ -84,8 +84,9 @@ def newMember():
 #     db.session.commit()
 #     return '', 204
 
-# @app.route('/fruit/<id>', methods = ["DELETE"])
-# def deleteUser(id):
-#     user = Fruit.query.filter_by(id=id).delete()
-#     db.session.commit()
-#     return '', 204
+@app.route('/member/<MemberID>', methods = ["DELETE"])
+def deleteMember(MemberID):
+    print("刪除",MemberID) 
+    user = Member.query.filter_by(MemberID=MemberID).delete()
+    db.session.commit()
+    return '', 204
