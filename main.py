@@ -11,6 +11,18 @@ app.config['SECRET_KEY'] = os.urandom(24)
 def login_page():
     return render_template('login.html')
 
+@app.route('/choose')
+def choose():
+    return render_template('choose.html')
+
+@app.route('/supplier')
+def sup():
+    return render_template('supplier.html')
+
+
+@app.route('/member')
+def supplier():
+    return render_template('member.html')
 
 db.init_app(app)
 with app.app_context():
@@ -21,6 +33,7 @@ with app.app_context():
 @app.route('/fruit', methods=["GET"])
 def getUsers():
     fruit = Fruit.query.all()
+    print(fruit)
     return render_template('fruit.html', fruits=fruit)
 
 @app.route('/fruit', methods = ["POST"])

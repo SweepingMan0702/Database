@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>choose</title>
+  
+  <style>
+    .rectangle {
+      width: 10cm;
+      height: 2.5cm;
+      border: none;
+      margin: 25px; /* 加上一些間距，使其更好看 */
+      background-color: rgb(224, 224, 224); /* 顏色設定在這裡 */
+      position: relative; /* 啟用相對定位 */
+    }
+  
+    .rectangle:nth-child(5) {
+      top: 38px;
+      left: 550px;
+    }
+    .rectangle:nth-child(6) {
+      top: 53px;
+      left: 550px;
+    }
+    .rectangle:nth-child(7) {
+      top: 68px;
+      left: 550px;
+    }
+    .rectangle:nth-child(8) {
+      top: 83px;
+      left: 550px;
+    }
+    .message {
+      position: relative;
+      top: 25px;
+      left: 607px;
+      font-size: 35px;
+      color: #5d5a5a; /* 文字顏色 */
+    }
+
+    .rectangle a {
+      display: block; /* 讓超連結元素擁有區塊屬性 */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      color: #535050;
+      text-decoration: none; /* 移除下劃線 */
+    }
+
+    /* 移除登出按鈕的框線 */
+    input[type="button"] {
+      border: none;
+      background-color: transparent; /* 背景透明 */
+      font-size: 1em;
+      cursor: pointer;
+      color: #007bff;
+      text-decoration: underline; /* 在文本下方添加下劃線效果 */
+    }
+  </style>
+
+  <!-- 在表單內部 -->
+  <form onsubmit="return validateForm()">
+    <!-- 現有的登入元素 -->
+  </form>
+  
+  <script>
+    function logout() {
+      // 執行登出相關操作，例如清除用戶驗證信息
+  
+      // 將用戶導向登入頁面
+      window.location.href = "/";
+    }
+  </script>
+  
+  <!-- 新增登出按鈕 -->
+  <input type="button" value="登出" onclick="logout()">
+  
+</head>
+<body>
+  <div class="message">選擇您想查詢的資料</div>
+  <div class="rectangle"><a href="/fruit">ABOUT水果</a></div>
+  <div class="rectangle"><a href="order.html">訂單</a></div>
+  <div class="rectangle"><a href="/member">會員資料表</a></div>
+  <div class="rectangle"><a href="/supplier">供應商資料</a></div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>供應商資料表</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    td {
+      border: none;
+      padding: 8px;
+      text-align: center;
+    }
+    label {
+      position: relative;
+      left: 13.5cm;
+      top: 1cm;
+      margin-bottom: 0.8cm;
+    }
+    input {
+      width: 300px;
+      height: 25px;
+      margin-bottom: 0.7cm;
+      position: relative;
+      left: 9.5cm;
+      top: 1.3cm;
+    }
+    button {
+      margin-top: 75px;
+      margin-left: 0.6cm;
+      position: relative;
+      left: 14.7cm;
+      color: rgb(105, 103, 103);
+      border: none;
+      padding: 9px; /* 新增 padding 屬性 */
+      font-size: 15px; /* 新增 font-size 屬性 */
+    }
+    button.goBack {
+        margin-left: -270px; /* 移動左邊距 */
+       /* 調整左邊距 */
+      top:85px;
+    }
+    button.blue {
+      background-color: #6eb5efaa;
+      border: none;
+    }
+    button.red {
+      background-color: #f19c969f;
+      border: none;
+    }
+    button.green {
+      background-color: #98f39ba0;
+      border: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <table>
+    <!-- 第一列 -->
+    <tr>
+      <td><label for="vendorID">供應商統一編號</label></td>
+      <td><input type="text" id="vendorID"></td>
+    </tr>
+    <!-- 第二列 -->
+    <tr>
+      <td><label for="vendorName">供應商名稱</label></td>
+      <td><input type="text" id="vendorName"></td>
+    </tr>
+    <!-- 第三列 -->
+    <tr>
+      <td><label for="phone">電話</label></td>
+      <td><input type="text" id="phone"></td>
+    </tr>
+    <!-- 第四列 -->
+    <tr>
+      <td><label for="email">Email</label></td>
+      <td><input type="text" id="email"></td>
+    </tr>
+    <!-- 第五列 -->
+    <tr>
+      <td><label for="contactPerson">負責人姓名</label></td>
+      <td><input type="text" id="contactPerson"></td>
+    </tr>
+    <!-- 第六列 -->
+    <tr>
+      <td><label for="address">地址</label></td>
+      <td><input type="text" id="address"></td>
+    </tr>
+  </table>
+
+  <button onclick="previousRecord()">上一筆</button>
+  <button onclick="nextRecord()">下一筆</button>
+  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="deleteRecord()" class="red">刪除</button>
+  <button onclick="searchRecord()">查詢</button>
+  <button onclick="updateRecord()" class="green">修改</button>
+  <button onclick="goBack()" class="goBack">返回查詢頁面</button>
+
+  <script>
+    var currentRecord = 0;
+
+    function showRecord(index) {
+      var inputs = document.querySelectorAll('input');
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+      }
+    }
+
+    function previousRecord() {
+      currentRecord--;
+      if (currentRecord < 0) {
+        currentRecord = 0;
+      }
+      showRecord(currentRecord);
+    }
+
+    function nextRecord() {
+      currentRecord++;
+      showRecord(currentRecord);
+    }
+
+    function addRecord() {
+      alert("執行新增操作");
+    }
+
+    function deleteRecord() {
+      alert("執行刪除操作");
+    }
+
+    function searchRecord() {
+      alert("執行查詢操作");
+    }
+
+    function updateRecord() {
+      alert("執行修改操作");
+    }
+
+    function goBack() {
+      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+    }
+  </script>
+
+</body>
+</html>

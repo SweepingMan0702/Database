@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>會員資料表</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    td {
+      border: none;
+      padding: 8px;
+      text-align: center;
+    }
+    label {
+      position: relative;
+      left: 10.2cm;
+      top: 1cm;
+      margin-bottom: 0.8cm;
+    }
+    input {
+      width: 300px;
+      height: 25px;
+      margin-bottom: 0.7cm;
+      position: relative;
+      left: 6.2cm;
+      top: 1.3cm;
+    }
+    button {
+      margin-top: 75px;
+      margin-left: 0.6cm;
+      position: relative;
+      left: 14.7cm;
+      color: rgb(105, 103, 103);
+      border: none;
+      padding: 9px; /* 新增 padding 屬性 */
+      font-size: 15px; /* 新增 font-size 屬性 */
+    }
+    button.goBack {
+        margin-left: -270px; /* 移動左邊距 */
+       /* 調整左邊距 */
+      top:85px;
+    }
+    button.blue {
+      background-color: #6eb5efaa;
+      border: none;
+    }
+    button.red {
+      background-color: #f19c969f;
+      border: none;
+    }
+    button.green {
+      background-color: #98f39ba0;
+      border: none;
+    }
+    canvas {
+  position: fixed;
+  top: 3cm; /* 往下移動 2 公分 */
+  left: 25.5cm;
+  width: 10em;
+  height: 10.5em;
+  margin-top: 0; /* 移除 margin-top，因為已經使用 position: fixed */
+  border: 1px solid #000;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <table>
+    <!-- 第一列 -->
+    <tr>
+      <td><label for="customerID">會員身分證</label></td>
+      <td><input type="text" id="customerID"></td>
+    </tr>
+    <!-- 第二列 -->
+    <tr>
+      <td><label for="customerName">會員姓名</label></td>
+      <td><input type="text" id="customerName"></td>
+    </tr>
+    <!-- 第三列 -->
+    <tr>
+      <td><label for="phone">手機號碼</label></td>
+      <td><input type="text" id="phone"></td>
+    </tr>
+    <!-- 第四列 -->
+    <tr>
+      <td><label for="email">Email</label></td>
+      <td><input type="text" id="email"></td>
+    </tr>
+    <!-- 第五列 -->
+    <tr>
+        <td><label for="address">地址</label></td>
+        <td><input type="text" id="address"></td>
+      </tr>>
+    <!-- 第六列 -->
+    <tr>
+        <td><label for="customerDiscount">會員折扣</label></td>
+        <td><input type="text" id="customerDiscount"></td>
+      </tr>
+  </table>
+
+  <button onclick="previousRecord()">上一筆</button>
+  <button onclick="nextRecord()">下一筆</button>
+  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="deleteRecord()" class="red">刪除</button>
+  <button onclick="searchRecord()">查詢</button>
+  <button onclick="updateRecord()" class="green">修改</button>
+  <button onclick="goBack()" class="goBack">返回查詢頁面</button>
+  <canvas id="photoCanvas"></canvas>
+
+  <script>
+    var currentRecord = 0;
+
+    function showRecord(index) {
+      var inputs = document.querySelectorAll('input');
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+      }
+    }
+
+    function previousRecord() {
+      currentRecord--;
+      if (currentRecord < 0) {
+        currentRecord = 0;
+      }
+      showRecord(currentRecord);
+    }
+
+    function nextRecord() {
+      currentRecord++;
+      showRecord(currentRecord);
+    }
+
+    function addRecord() {
+      alert("執行新增操作");
+    }
+
+    function deleteRecord() {
+      alert("執行刪除操作");
+    }
+
+    function searchRecord() {
+      alert("執行查詢操作");
+    }
+
+    function updateRecord() {
+      alert("執行修改操作");
+    }
+
+    function goBack() {
+      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+    }
+    var canvas = document.getElementById('photoCanvas');
+var ctx = canvas.getContext('2d');
+var img = new Image();
+img.src = 'C:/Users/User/OneDrive/桌面/HTML/database/貓貓.jpg'; // 替換為實際照片的路徑
+img.onload = function() {
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+};
+
+  </script>
+
+</body>
+</html>
