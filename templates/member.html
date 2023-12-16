@@ -126,31 +126,75 @@
 
   <!-- 新增資料的小視窗 -->
   <div id="modal">
-    <label for="供應商統一編號">供應商統一編號：</label>
-    <input type="text" id="供應商統一編號">
-    <br>
-    <label for="水果供應商名稱">水果供應商名稱：</label>
-    <input type="text" id="水果供應商名稱">
-    <br>
-    <label for="電話">電話：</label>
-    <input type="text" id="電話">
-    <br>
-    <label for="Email">Email：</label>
-    <input type="text" id="Email">
-    <br>
-    <label for="住址">地址：</label>
-    <input type="text" id="住址">
-    <br>
-    <label for="負責人姓名">負責人姓名：</label>
-    <input type="text" id="負責人姓名">
-    <br>
-    <button onclick="updateData()">更新</button>
+    <form method="POST" action="/member" onsubmit="addmember(event)">
+      <label for="MemberID">Member ID:</label><br>
+      <input type="text" id="MemberID" name="MemberID"><br>
+      <br>
+      <label for="Name">Name:</label><br>
+      <input type="text" id="Name" name="Name"><br>
+      <br>
+      <label for="Phone">Phone:</label><br>
+      <input type="text" id="Phone" name="Phone"><br>
+      <br>
+      <label for="Mobile">Mobile:</label><br>
+      <input type="text" id="Mobile" name="Mobile"><br>
+      <br>
+      <label for="Email">Email:</label><br>
+      <input type="text" id="Email" name="Email"><br>
+      <br>
+      <label for="LineStatus">Line Status:</label><br>
+      <input type="checkbox" id="LineStatus" name="LineStatus"><br>
+      <br>
+      <label for="Address">Address:</label><br>
+      <input type="text" id="Address" name="Address"><br>
+      <br>
+      <label for="Age">Age:</label><br>
+      <input type="number" id="Age" name="Age"><br>
+      <br>
+      <label for="Photo">Photo:</label><br>
+      <input type="file" id="Photo" name="Photo"><br>
+      <br>
+      <label for="Discount">Discount:</label><br>
+      <input type="text" id="Discount" name="Discount"><br>
+      
+    <button type="submit">更新</button>
     <button onclick="closeModal()">取消</button>
+  </form>
   </div>
 
 
 
   <script>
+    //新增會員
+    function addmember(event){
+      console.log("執行中");
+      event.preventDefault();
+      const MemberID = document.getElementById('MemberID').value;
+      const Name = document.getElementById('Name').value;
+      const Phone = document.getElementById('Phone').value;
+      const Mobile = document.getElementById('Mobile').value;
+      const Email = document.getElementById('Email').value;
+      const LineStatus = document.getElementById('LineStatus').checked;
+      const Address = document.getElementById('Address').value;
+      const Age = document.getElementById('Age').value;
+      const Photo = document.getElementById('Photo').value; // 注意：這裡獲取的是文件名，而不是實際的文件內容
+      const Discount = document.getElementById('Discount').value;
+      fetch('/member',{method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify({MemberID, Name, Phone, Mobile, Email, LineStatus, Address, Age: Number(Age), Photo, Discount}),
+      })
+      .then(response => {
+                if (response.ok) {
+                    location.reload();
+                    location.reload();
+                    location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })
+    }
+    
     //新增的按鈕
     function openModal() {
       document.getElementById('modal').style.display = 'block';

@@ -60,7 +60,8 @@ class Member(db.Model):
     LineStatus: bool
     Address: str
     Age: int
-    Photo: bytes
+    # Photo: bytes
+    Photo: str
     Discount: Decimal
 
     MemberID = db.Column(db.String(12), primary_key=True)
@@ -71,7 +72,8 @@ class Member(db.Model):
     LineStatus = db.Column(db.Boolean)
     Address = db.Column(db.String(60))
     Age = db.Column(db.Integer)
-    Photo = db.Column(db.LargeBinary)
+    # Photo = db.Column(db.LargeBinary)
+    Photo = db.Column(db.String(50)) #先改這個
     Discount = db.Column(db.Numeric(3, 2))
 
     def __init__(self, MemberID, Name, Phone, Mobile, Email, LineStatus, Address, Age, Photo, Discount):

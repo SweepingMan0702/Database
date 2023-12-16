@@ -64,13 +64,14 @@ def getMembers():
     member = Member.query.all()
     return render_template('member.html', members=member)
 
-# @app.route('/fruit', methods = ["POST"])
-# def newUsers():
-#     request_data = request.get_json()
-#     fruit = Fruit(request_data['username'], request_data['password'])
-#     db.session.add(fruit)
-#     db.session.commit()
-#     return '', 204
+@app.route('/member', methods = ["POST"])
+def newMember():
+    print("hi")
+    request_data = request.get_json()
+    member = Member(request_data['MemberID'], request_data['Name'], request_data['Phone'], request_data['Mobile'], request_data['Email'], request_data['LineStatus'], request_data['Address'], request_data['Age'], request_data['Photo'], request_data['Discount'])
+    db.session.add(member)
+    db.session.commit()
+    return '', 204
 
 # @app.route('/fruit/<id>', methods = ["GET"])
 # def getUser(id):
