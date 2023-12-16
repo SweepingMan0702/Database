@@ -69,6 +69,9 @@
   </style>
 </head>
 <body>
+  
+
+  <h1>Member List</h1>
 
   <table>
     <!-- 第一列 -->
@@ -103,8 +106,8 @@
       </tr>
   </table>
 
-  <button onclick="previousRecord()">上一筆</button>
-  <button onclick="nextRecord()">下一筆</button>
+  <button onclick="showRecord(currentRecord - 1)">上一筆</button>
+  <button onclick="showRecord(currentRecord + 1)">下一筆</button>
   <button onclick="addRecord()" class="blue">新增</button>
   <button onclick="deleteRecord()" class="red">刪除</button>
   <button onclick="searchRecord()">查詢</button>
@@ -113,27 +116,24 @@
   <canvas id="photoCanvas"></canvas>
 
   <script>
+
+    //資料顯示 
     var currentRecord = 0;
-
+    var members = {{ members|tojson|safe }};
     function showRecord(index) {
-      var inputs = document.querySelectorAll('input');
-      for (var i = 0; i < inputs.length; i++) {
-        inputs[i].value = '';
-      }
+        var member = members[index];
+        if (member) {
+            var inputs = document.querySelectorAll('input');
+            inputs[0].value = member.MemberID
+            inputs[1].value = member.Name;
+            inputs[2].value = member.Phone;
+            inputs[3].value = member.Email;
+            inputs[4].value = member.Address;
+            inputs[5].value = member.Discount;
+            currentRecord = index; // Update the current record index
+        }
     }
-
-    function previousRecord() {
-      currentRecord--;
-      if (currentRecord < 0) {
-        currentRecord = 0;
-      }
-      showRecord(currentRecord);
-    }
-
-    function nextRecord() {
-      currentRecord++;
-      showRecord(currentRecord);
-    }
+    showRecord(currentRecord);
 
     function addRecord() {
       alert("執行新增操作");
@@ -157,7 +157,7 @@
     var canvas = document.getElementById('photoCanvas');
 var ctx = canvas.getContext('2d');
 var img = new Image();
-img.src = 'C:/Users/User/OneDrive/桌面/HTML/database/貓貓.jpg'; // 替換為實際照片的路徑
+img.src = 'https://mood-ettoday.cdn.hinet.net/B/rs:fill:1200/sm:1/plain/https%3A%2F%2Fmoodstatic-ettoday.cdn.hinet.net%2F95ca1251-a377-41a8-8a0e-c1ae235c3b07.jpg'; // 替換為實際照片的路徑
 img.onload = function() {
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 };

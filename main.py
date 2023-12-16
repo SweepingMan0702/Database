@@ -1,6 +1,6 @@
 from flask import Flask, request, flash, url_for, redirect, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from model.Fruit import Fruit, db
+from model.Database import Fruit , Member , db
 import os
 
 app = Flask(__name__)
@@ -20,9 +20,6 @@ def sup():
     return render_template('supplier.html')
 
 
-@app.route('/member')
-def supplier():
-    return render_template('member.html')
 
 db.init_app(app)
 with app.app_context():
@@ -30,14 +27,14 @@ with app.app_context():
 
 
 
+#水果功能 顯示
 @app.route('/fruit', methods=["GET"])
-def getUsers():
+def gestUser(): #顯示
     fruit = Fruit.query.all()
-    print(fruit)
     return render_template('fruit.html', fruits=fruit)
 
 @app.route('/fruit', methods = ["POST"])
-def newUsers():
+def newUsers(): #新增
     request_data = request.get_json()
     fruit = Fruit(request_data['username'], request_data['password'])
     db.session.add(fruit)
@@ -45,7 +42,7 @@ def newUsers():
     return '', 204
 
 @app.route('/fruit/<id>', methods = ["GET"])
-def getUser(id):
+def getUser(id): #selection
     fruit = Fruit.query.filter_by(id=id)
     return jsonify(fruit[0])
 
@@ -60,3 +57,35 @@ def deleteUser(id):
     user = Fruit.query.filter_by(id=id).delete()
     db.session.commit()
     return '', 204
+
+#會員功能
+@app.route('/member', methods=["GET"])
+def getMembers():
+    member = Member.query.all()
+    print(member)
+    return render_template('member.html', members=member)
+
+# @app.route('/fruit', methods = ["POST"])
+# def newUsers():
+#     request_data = request.get_json()
+#     fruit = Fruit(request_data['username'], request_data['password'])
+#     db.session.add(fruit)
+#     db.session.commit()
+#     return '', 204
+
+# @app.route('/fruit/<id>', methods = ["GET"])
+# def getUser(id):
+#     fruit = Fruit.query.filter_by(id=id)
+#     return jsonify(fruit[0])
+
+# @app.route('/fruit', methods = ["DELETE"])
+# def deleteUsers():
+#     users = Fruit.query.delete()  
+#     db.session.commit()
+#     return '', 204
+
+# @app.route('/fruit/<id>', methods = ["DELETE"])
+# def deleteUser(id):
+#     user = Fruit.query.filter_by(id=id).delete()
+#     db.session.commit()
+#     return '', 204
