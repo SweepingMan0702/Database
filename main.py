@@ -41,6 +41,14 @@ def newUsers(): #新增
     db.session.commit()
     return '', 204
 
+#刪除
+@app.route('/fruit/<ID>', methods = ["DELETE"])
+def deleteFruit(ID):
+    print("刪除",ID) 
+    user = Fruit.query.filter_by(ID=ID).delete()
+    db.session.commit()
+    return '', 204
+
 @app.route('/fruit/<id>', methods = ["GET"])
 def getUser(id): #selection
     fruit = Fruit.query.filter_by(id=id)
@@ -52,11 +60,7 @@ def deleteUsers():
     db.session.commit()
     return '', 204
 
-@app.route('/fruit/<id>', methods = ["DELETE"])
-def deleteUser(id):
-    user = Fruit.query.filter_by(id=id).delete()
-    db.session.commit()
-    return '', 204
+
 
 #會員功能
 @app.route('/member', methods=["GET"])

@@ -250,6 +250,25 @@
     })
   }
   
+  //刪除按鈕
+  function deleteRecord() {
+    if (fruits && fruits.length > 0) {
+        var ID = fruits[currentRecord].ID;
+        console.log(ID);
+        alert("執行刪除操作");
+
+        fetch(`/fruit/${ID}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              location.reload();
+              location.reload();
+              location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}}
+    
 
 
         //還沒做的功能
@@ -257,9 +276,7 @@
       alert("執行新增操作");
     }
 
-    function deleteRecord() {
-      alert("執行刪除操作");
-    }
+
 
     function searchRecord() {
       alert("執行查詢操作");
