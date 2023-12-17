@@ -93,7 +93,7 @@ def getSuppliers():
 @app.route('/supplier', methods = ["POST"])
 def newSupplier():
     request_data = request.get_json()
-    supplier = Supplier(request_data['MemberID'], request_data['Name'], request_data['Phone'], request_data['Mobile'], request_data['Email'], request_data['LineStatus'], request_data['Address'], request_data['Age'], request_data['Photo'], request_data['Discount'])
+    supplier = Supplier(request_data['ID'], request_data['Name'], request_data['Phone'], request_data['Email'], request_data['Address'], request_data['Agent'])
     db.session.add(supplier)
     db.session.commit()
     return '', 204

@@ -107,7 +107,7 @@
 
   <button onclick="showRecord(currentRecord - 1)">上一筆</button>
   <button onclick="showRecord(currentRecord + 1)">下一筆</button>
-  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="openModal()" class="blue">新增</button>
   <button onclick="deleteRecord()" class="red">刪除</button>
   <button onclick="searchRecord()">查詢</button>
   <button onclick="updateRecord()" class="green">修改</button>
@@ -116,32 +116,34 @@
   <!-- 模態框的HTML結構 -->
   <div id="myModal" class="modal">
     <p>請輸入供應商資料:</p>
+    <form method="PUT" action="/supplier" onsubmit="addsupplier(event)">
     <td>
-    <label for="vendorID" style="position: relative; left: -0.2cm;top: 1.5cm;">供應商統一編號</label>
-    <input type="text" id="vendorIDModal" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 1.5cm;"><br>
+    <label for="ID" style="position: relative; left: -0.2cm;top: 1.5cm;">供應商統一編號</label>
+    <input type="text" id="ID" name="ID" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 1.5cm;"><br>
 </td>
 <td>
-    <label for="vendorNameModal" style="position: relative; left: 0cm;top: 1.5cm;">供應商名稱</label>
-    <input type="text" id="vendorNameModal"  style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 1.5cm;"><br>
+    <label for="Name" style="position: relative; left: 0cm;top: 1.5cm;">供應商名稱</label>
+    <input type="text" id="Name" name="Name"  style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 1.5cm;"><br>
 </td>
 <td>
-    <label for="phoneModal" style="position: relative; left: 0.8cm;top: 1.5cm;">電話</label>
-    <input type="text" id="phoneModal"style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
+    <label for="Phone" style="position: relative; left: 0.8cm;top: 1.5cm;">電話</label>
+    <input type="text" id="Phone" name="Phone" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
 </td>
 <td>
-    <label for="emailModal" style="position: relative; left: 0.8cm;top: 1.5cm;">Email</label>
-    <input type="text" id="emailModal"style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
+    <label for="Email" style="position: relative; left: 0.8cm;top: 1.5cm;">Email</label>
+    <input type="text" id="Email" name="Email" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
 </td>
 <td>
-    <label for="contactPersonModal"style="position: relative; left: 0cm;top: 1.5cm;">負責人姓名</label>
-    <input type="text" id="contactPersonModal"style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 1.5cm;"><br>
+    <label for="Agent"style="position: relative; left: 0cm;top: 1.5cm;">負責人姓名</label>
+    <input type="text" id="Agent" name="Agent" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 1.5cm;"><br>
 </td>
 <td>
-    <label for="addressModal" style="position: relative; left: 0.8cm;top: 1.5cm;">地址</label>
-    <input type="text" id="addressModal"style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
+    <label for="Address" style="position: relative; left: 0.8cm;top: 1.5cm;">地址</label>
+    <input type="text" id="Address" name="Address" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
 </td>
-    <button onclick="saveRecord()" class="blue"style="position: relative; left: 2.5cm;top: -0.5cm;">儲存</button>
+    <button type="submit" class="blue"style="position: relative; left: 2.5cm;top: -0.5cm;">儲存</button>
     <button onclick="closeModal()"style="position: relative; left: 3.5cm;top: -0.5cm;">取消</button>
+  </form>
   </div>
 
   <script>
@@ -166,25 +168,61 @@
 
     showRecord(currentRecord);
 
-    function addRecord() {
-      // 顯示模態框當“新增”按鈕被點擊
-      document.getElementById('myModal').style.display = 'block';
+    //新增供應商
+      function addsupplier(event){
+      event.preventDefault();
+      const ID = document.getElementById('ID').value;
+      const Name = document.getElementById('Name').value;
+      const Phone = document.getElementById('Phone').value;
+      const Email = document.getElementById('Email').value;
+      const Address = document.getElementById('Address').value;
+      const Agent = document.getElementById('Agent').value;
+      fetch('/supplier',{method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify({ID, Name, Phone, Email, Address, Agent}),
+      })
+      .then(response => {
+                if (response.ok) {
+                    location.reload();
+                    location.reload();
+                    location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })
     }
+    //新增的按鈕
+  function openModal() {
+    document.getElementById('myModal').style.display = 'block';
+  }
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
 
-    function saveRecord() {
-      // 從模態框的輸入字段獲取值
-      var vendorID = document.getElementById('vendorIDModal').value;
-      // 根據需要獲取其他輸入字段的值
 
-      // 處理數據（例如，發送到服務器，更新數據庫）
+//刪除按鈕
+function deleteRecord() {
+      if (suppliers && suppliers.length > 0) {
+        var ID = suppliers[currentRecord].ID;
+        console.log(ID);
+        alert("執行刪除操作");
 
-      // 關閉模態框
-      closeModal();
-    }
+        fetch(`/supplier/${ID}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              location.reload();
+              location.reload();
+              location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}}
 
-    function deleteRecord() {
-      alert("執行刪除操作");
-    }
+
+
+
 
     function searchRecord() {
       alert("執行查詢操作");
@@ -194,10 +232,6 @@
       alert("執行修改操作");
     }
 
-    function closeModal() {
-      // 隐藏模态框
-      document.getElementById('myModal').style.display = 'none';
-    }
 
     function goBack() {
       window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
