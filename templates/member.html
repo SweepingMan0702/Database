@@ -114,19 +114,23 @@
       </tr>
   </table>
 
+
   <button onclick="showRecord(currentRecord - 1)">上一筆</button>
   <button onclick="showRecord(currentRecord + 1)">下一筆</button>
   <button onclick="openModal()" class="blue">新增</button>
   <button onclick="deleteRecord()" class="red">刪除</button>
-  <button onclick="searchRecord()">查詢</button>
   <button onclick="updateRecord()" class="green">修改</button>
   <button onclick="goBack()" class="goBack">返回查詢頁面</button>
   <canvas id="photoCanvas"></canvas>
+  <form >
+    <input type="text" id="serchId">
+    <button type="submit"></button>
+  </form>
 
 
   <!-- 新增資料的小視窗 -->
   <div id="modal">
-    <form method="POST" action="/member" onsubmit="addmember(event)">
+    <form method="PUT" action="/member" onsubmit="addmember(event)">
       <label for="MemberID">Member ID:</label><br>
       <input type="text" id="MemberID" name="MemberID"><br>
       <br>
@@ -165,9 +169,57 @@
 
 
   <script>
-    //新增會員
-    function addmember(event){
-      console.log("執行中");
+
+
+  
+    //資料顯示 
+    var currentRecord = 0;
+    var members = {{ members | tojson | safe}}
+    console.log(members);
+    function showRecord(index) {
+        var member = members[index];
+        if (member) {
+            var inputs = document.querySelectorAll('input');
+            inputs[0].value = member.MemberID
+            inputs[1].value = member.Name;
+            inputs[2].value = member.Phone;
+            inputs[3].value = member.Email;
+            inputs[4].value = member.Address;
+            inputs[5].value = member.Discount;
+            currentRecord = index; // Update the current record index
+        }
+    }
+
+    showRecord(currentRecord);
+
+//資料查詢
+      function searchRecord(id) {
+        console.log(id);
+        fetch(`/member/${id}`),{}
+    }
+
+//刪除按鈕
+    function deleteRecord() {
+      if (members && members.length > 0) {
+        var memberId = members[currentRecord].MemberID; // 使用當前索引處的 MemberID
+        console.log(memberId);
+        alert("執行刪除操作");
+
+        fetch(`/member/${memberId}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              location.reload();
+              location.reload();
+              location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}}
+
+
+      //新增會員
+      function addmember(event){
       event.preventDefault();
       const MemberID = document.getElementById('MemberID').value;
       const Name = document.getElementById('Name').value;
@@ -202,53 +254,12 @@
   function closeModal() {
     document.getElementById('modal').style.display = 'none';
   }
-  
-    //資料顯示 
-    var currentRecord = 0;
-    var members = {{ members | tojson | safe}}
-    console.log(members);
-    function showRecord(index) {
-        var member = members[index];
-        if (member) {
-            var inputs = document.querySelectorAll('input');
-            inputs[0].value = member.MemberID
-            inputs[1].value = member.Name;
-            inputs[2].value = member.Phone;
-            inputs[3].value = member.Email;
-            inputs[4].value = member.Address;
-            inputs[5].value = member.Discount;
-            currentRecord = index; // Update the current record index
-        }
-    }
 
-    showRecord(currentRecord);
 
-//刪除按鈕
-    function deleteRecord() {
-      if (members && members.length > 0) {
-        var memberId = members[currentRecord].MemberID; // 使用當前索引處的 MemberID
-        console.log(memberId);
-        alert("執行刪除操作");
 
-        fetch(`/member/${memberId}`, { method: 'DELETE' })
-          .then(response => {
-            if (response.ok) {
-              location.reload();
-              location.reload();
-              location.reload();
-                }   
-                else {
-                    console.error('Failed to delete user');
-                }
-      })}}
-
-    function searchRecord() {
-      alert("執行查詢操作");
-    }
-
-    function updateRecord() {
-      alert("執行修改操作");
-    }
+    // function updateRecord() {
+    //   alert("執行修改操作");
+    // }
 
     function goBack() {
       window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
@@ -263,6 +274,38 @@
 
 
 
+
+
+
+        //資料修改
+  //     function updateRecord(event) {
+  //     console("hihihihhi");
+  //     event.preventDefault();
+  //     const MemberID = document.getElementById('customerID').value;
+  //     const Name = document.getElementById('customerName').value;
+  //     const Phone = document.getElementById('phone').value;
+  //     const Email = document.getElementById('email').value;
+  //     const Address = document.getElementById('address').value;
+  //     const Discount = document.getElementById('customerDiscount').value;
+
+  //   fetch(`/member/${MemberID}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       MemberID, Name, Phone, Email, Address, Discount
+  //     }),
+  //   })
+  //   .then(response => {
+  //     if (response.ok) {
+  //       closeModal();
+  //       location.reload();
+  //     } else {
+  //       console.error('Failed to update user');
+  //     }
+  //   });
+  // }
   </script>
 </body>
 </html>

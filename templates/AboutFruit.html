@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABOUT水果</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    td {
+      border: none;
+      padding: 8px;
+      text-align: center;
+    }
+    label {
+      position: relative;
+      left: 13.5cm;
+      top: 1cm;
+      margin-bottom: 0.8cm;
+    }
+    input {
+      width: 300px;
+      height: 25px;
+      margin-bottom: 0.7cm;
+      position: relative;
+      left: 9.5cm;
+      top: 1.3cm;
+    }
+    
+    button {
+      top: -165px;
+      margin-left: 0.6cm;
+      position: relative;
+      left: 13.7cm;
+      color: rgb(105, 103, 103);
+      border: none;
+      padding: 9px; /* 新增 padding 屬性 */
+      font-size: 15px; /* 新增 font-size 屬性 */
+    }
+    button.goBack {
+        margin-left: -270px; /* 移動左邊距 */
+       /* 調整左邊距 */
+      top:-75px;
+    }
+    button.blue {
+      background-color: #6eb5efaa;
+      border: none;
+    }
+    button.red {
+      background-color: #f19c969f;
+      border: none;
+    }
+    button.green {
+      background-color: #98f39ba0;
+      border: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <table>
+    <!-- 第一列 -->
+    <tr>
+        <td>
+            <label for="fruitID" style="position: relative; left: 3cm;top: 2.1cm;">水果編號</label>
+            <input type="text" id="fruitID" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 4cm; top: 2.1cm;">
+          </td>
+        
+    </tr>
+    <!-- 第二列 -->
+    <tr>
+        <td>
+            <label for="fruitName" style="position: relative; left: 3cm;top: 2.8cm;">水果名稱</label>
+            <input type="text" id="fruitName" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 4cm; top: 2.8cm;">
+          </td>
+    </tr>
+    <!-- 第三列 -->
+    <tr>
+        <td>
+        <label for="number" style="position: relative; left: 1.2cm;top: 3.4cm;">現有數量</label>
+        <input type="text" id="number" style="width: 160px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2.2cm; top: 3.4cm;">
+      </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <label for="unit" style="position: relative; left: 7.5cm;top: 1.5cm;">單位</label>
+            <input type="text" id="unit" style="width: 50px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 7.8cm; top: 1.5cm;">
+          </td>
+      </tr>
+    <!-- 第四列 -->
+    <tr>
+        <td>
+            <label for="fruitvendorname" style="position: relative; left: 3cm;top: 2cm;">水果供應商名稱</label>
+            <input type="text" id="fruitvendorname" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 3.5cm; top: 2cm;">
+            </td>
+    <!-- 第五列 -->
+    <tr>
+        <td>
+            <label for="Purchasedate" style="position: relative; left: 17.5cm;top: -7.5cm;">進貨日期</label>
+            <input type="text" id="Purchasedate" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 18.5cm; top: -7.55cm;">
+          </td>
+    </tr>
+    <!-- 第六列 -->
+    <tr>
+        <td>
+            <label for="Promotiondate" style="position: relative; left: 17.5cm;top: -6.8cm;">開始促銷日期</label>
+            <input type="text" id="Promotiondate" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 18.15cm; top: -6.8cm;">
+          </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="unitprice" style="position: relative; left: 17.5cm;top: -6.2cm;">進貨單價</label>
+            <input type="text" id="unitprice" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 18.6cm; top: -6.2cm;">
+          </td>
+      </tr>
+      <tr>
+        <td>
+            <label for="value" style="position: relative; left: 17.5cm;top: -5.6cm;">現有價值小計</label>
+            <input type="text" id="value" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 18.2cm; top: -5.6cm;">
+          </td>
+      </tr>
+      
+  </table>
+
+  <button onclick="showRecord(currentRecord - 1)">上一筆</button>
+  <button onclick="showRecord(currentRecord + 1)">下一筆</button>
+  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="deleteRecord()" class="red">刪除</button>
+  <button onclick="searchRecord()">查詢</button>
+  <button onclick="updateRecord()" class="green">修改</button>
+  <button onclick="goBack()" class="goBack">返回查詢頁面</button>
+
+  <script>
+    //資料顯示
+    var currentRecord = 0;
+    var fruits = {{ fruits | tojson | safe}}
+    console.log(fruits);
+    function showRecord(index) {
+        var fruit = fruits[index];
+        if (fruit) {
+            var inputs = document.querySelectorAll('input');
+            inputs[0].value = fruit.ID
+            inputs[1].value = fruit.F_name;
+            inputs[2].value = fruit.Quantity;
+            inputs[3].value = fruit.Unit;
+            inputs[4].value = fruit.Supplier;
+            inputs[5].value = fruit.PurchaseDate;
+            inputs[6].value = fruit.PromotionDate;
+            inputs[7].value = fruit.Cost;
+            inputs[8].value = fruit.TotalValue;
+            currentRecord = index; // Update the current record index
+        }
+    }
+
+    showRecord(currentRecord);
+
+    function previousRecord() {
+      currentRecord--;
+      if (currentRecord < 0) {
+        currentRecord = 0;
+      }
+      showRecord(currentRecord);
+    }
+
+    function nextRecord() {
+      currentRecord++;
+      showRecord(currentRecord);
+    }
+
+    function addRecord() {
+      alert("執行新增操作");
+    }
+
+    function deleteRecord() {
+      alert("執行刪除操作");
+    }
+
+    function searchRecord() {
+      alert("執行查詢操作");
+    }
+
+    function updateRecord() {
+      alert("執行修改操作");
+    }
+
+    function goBack() {
+      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+    }
+  </script>
+
+</body>
+</html>

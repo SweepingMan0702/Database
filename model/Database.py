@@ -34,19 +34,19 @@ class Fruit(db.Model):
     PromotionDate = db.Column(db.Date)
     Expiry = db.Column(db.Date)
 
-    # def __init__(self, ID, F_name, Supplier, Quantity, Unit, Cost, TotalValue,
-    #              Location, PurchaseDate, PromotionDate, Expiry):
-    #     self.ID = ID
-    #     self.F_name = F_name
-    #     self.Supplier = Supplier
-    #     self.Quantity = Quantity
-    #     self.Unit = Unit
-    #     self.Cost = Cost
-    #     self.TotalValue = TotalValue
-    #     self.Location = Location
-    #     self.PurchaseDate = PurchaseDate
-    #     self.PromotionDate = PromotionDate
-    #     self.Expiry = Expiry
+    def __init__(self, ID, F_name, Supplier, Quantity, Unit, Cost, TotalValue,
+                 Location, PurchaseDate, PromotionDate, Expiry):
+        self.ID = ID
+        self.F_name = F_name
+        self.Supplier = Supplier
+        self.Quantity = Quantity
+        self.Unit = Unit
+        self.Cost = Cost
+        self.TotalValue = TotalValue
+        self.Location = Location
+        self.PurchaseDate = PurchaseDate
+        self.PromotionDate = PromotionDate
+        self.Expiry = Expiry
 
 #會員
 @dataclass
