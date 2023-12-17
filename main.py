@@ -1,6 +1,6 @@
 from flask import Flask, request, flash, url_for, redirect, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from model.Database import Fruit , Member , db
+from model.Database import Fruit , Member , Supplier , db
 import os
 
 app = Flask(__name__)
@@ -15,9 +15,6 @@ def login_page():
 def choose():
     return render_template('choose.html')
 
-@app.route('/supplier')
-def sup():
-    return render_template('supplier.html')
 
 
 
@@ -49,18 +46,18 @@ def deleteFruit(ID):
     db.session.commit()
     return '', 204
 
-@app.route('/fruit/<id>', methods = ["GET"])
-def getUser(id): #selection
-    fruit = Fruit.query.filter_by(id=id)
-    return jsonify(fruit[0])
+# @app.route('/fruit/<id>', methods = ["GET"])
+# def getUser(id): #selection
+#     fruit = Fruit.query.filter_by(id=id)
+#     return jsonify(fruit[0])
 
-@app.route('/fruit', methods = ["DELETE"])
-def deleteUsers():
-    users = Fruit.query.delete()  
-    db.session.commit()
-    return '', 204
+# @app.route('/fruit', methods = ["DELETE"])
+# def deleteUsers():
+#     users = Fruit.query.delete()  
+#     db.session.commit()
+#     return '', 204
 
-
+#####################################
 
 #會員功能
 @app.route('/member', methods=["GET"])
@@ -83,6 +80,32 @@ def deleteMember(MemberID):
     db.session.commit()
     return '', 204
 
+
+###############################
+
+#供應商
+@app.route('/supplier', methods=["GET"])
+def getSuppliers():
+    supplier = Supplier.query.all()
+    print(supplier)
+    return render_template('supplier.html', suppliers=supplier)
+#新增
+@app.route('/supplier', methods = ["POST"])
+def newSupplier():
+    request_data = request.get_json()
+    supplier = Supplier(request_data['MemberID'], request_data['Name'], request_data['Phone'], request_data['Mobile'], request_data['Email'], request_data['LineStatus'], request_data['Address'], request_data['Age'], request_data['Photo'], request_data['Discount'])
+    db.session.add(supplier)
+    db.session.commit()
+    return '', 204
+#刪除
+@app.route('/supplier/<ID>', methods = ["DELETE"])
+def deleteSupplier(ID):
+    print("刪除",ID) 
+    user = Supplier.query.filter_by(ID=ID).delete()
+    db.session.commit()
+    return '', 204
+
+######################################
 #修改
 # @app.route('/member/<MemberID>', methods=["PUT"])
 # def updateMember(MemberID):
@@ -104,10 +127,10 @@ def deleteMember(MemberID):
 
 #     db.session.commit()
 
-
-@app.route('/member/<id>', methods = ["GET"])
-def getMember(MemberID):
-    members = Member.query.filter_by(MemberID=MemberID)
-    return jsonify(members[0])
+#查詢
+# @app.route('/member/<id>', methods = ["GET"])
+# def getMember(MemberID):
+#     members = Member.query.filter_by(MemberID=MemberID)
+#     return jsonify(members[0])
 
 

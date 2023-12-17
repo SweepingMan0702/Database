@@ -88,4 +88,27 @@ class Member(db.Model):
         self.Photo = Photo
         self.Discount = Discount
 
+#供應商
+@dataclass
+class Supplier(db.Model):
+    ID: str
+    Name: str
+    Phone: str
+    Email: str
+    Address: str
+    Agent: str
 
+    ID = db.Column(db.String(10), primary_key=True)
+    Name = db.Column(db.String(16))
+    Phone = db.Column(db.String(20))
+    Email = db.Column(db.String(40))
+    Address = db.Column(db.String(60))
+    Agent = db.Column(db.String(16))
+
+    def __init__(self, ID: str, Name: str, Phone: str, Email: str, Address: str, Agent: str):
+        self.ID = ID
+        self.Name = Name
+        self.Phone = Phone
+        self.Email = Email
+        self.Address = Address
+        self.Agent = Agent
