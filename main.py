@@ -36,7 +36,7 @@ def gestUser(): #顯示
 @app.route('/fruit', methods = ["POST"])
 def newUsers(): #新增
     request_data = request.get_json()
-    fruit = Fruit(request_data['username'], request_data['password'])
+    fruit = Fruit(request_data['ID'], request_data['F_name'], request_data['Supplier'], request_data['Quantity'], request_data['Unit'], request_data['Cost'], request_data['TotalValue'], request_data['Location'], request_data['PurchaseDate'], request_data['PromotionDate'],request_data['Expiry'])
     db.session.add(fruit)
     db.session.commit()
     return '', 204

@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ABOUT水果</title>
   <style>
+    #modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
     table {
       border-collapse: collapse;
       width: 50%;
@@ -128,11 +139,54 @@
 
   <button onclick="showRecord(currentRecord - 1)">上一筆</button>
   <button onclick="showRecord(currentRecord + 1)">下一筆</button>
-  <button onclick="addRecord()" class="blue">新增</button>
+  <button onclick="openModal()" class="blue">新增</button>
   <button onclick="deleteRecord()" class="red">刪除</button>
+
   <button onclick="searchRecord()">查詢</button>
   <button onclick="updateRecord()" class="green">修改</button>
   <button onclick="goBack()" class="goBack">返回查詢頁面</button>
+
+    <!-- 新增資料的小視窗 -->
+    <div id="modal">
+      <form method="PUT" action="/fruit" onsubmit="addfruit(event)">
+        <label for="ID">Fruit ID:</label><br>
+        <input type="text" id="ID" name="ID"><br>
+        <br>
+        <label for="F_name">Name:</label><br>
+        <input type="text" id="F_name" name="F_name"><br>
+        <br>
+        <label for="Supplier">Supplier:</label><br>
+        <input type="text" id="Supplier" name="Supplier"><br>
+        <br>
+        <label for="Quantity">Quantity:</label><br>
+        <input type="number" id="Quantity" name="Quantity"><br>
+        <br>
+        <label for="Unit">Unit:</label><br>
+        <input type="text" id="Unit" name="Unit"><br>
+        <br>
+        <label for="Cost">Cost:</label><br>
+        <input type="number" step="0.01" id="Cost" name="Cost"><br>
+        <br>
+        <label for="TotalValue">Total Value:</label><br>
+        <input type="number" step="0.01" id="TotalValue" name="TotalValue"><br>
+        <br>
+        <label for="Location">Location:</label><br>
+        <input type="text" id="Location" name="Location"><br>
+        <br>
+        <label for="PurchaseDate">Purchase Date:</label><br>
+        <input type="date" id="PurchaseDate" name="PurchaseDate"><br>
+        <br>
+        <label for="PromotionDate">Promotion Date:</label><br>
+        <input type="date" id="PromotionDate" name="PromotionDate"><br>
+        <br>
+        <label for="Expiry">Expiry:</label><br>
+        <input type="date" id="Expiry" name="Expiry"><br>
+
+        
+      <button type="submit">更新</button>
+      <button onclick="closeModal()">取消</button>
+    </form>
+    </div>
 
   <script>
     //資料顯示
@@ -158,19 +212,47 @@
 
     showRecord(currentRecord);
 
-    function previousRecord() {
-      currentRecord--;
-      if (currentRecord < 0) {
-        currentRecord = 0;
-      }
-      showRecord(currentRecord);
-    }
+        //新增的按鈕
+  function openModal() {
+    document.getElementById('modal').style.display = 'block';
+  }
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
 
-    function nextRecord() {
-      currentRecord++;
-      showRecord(currentRecord);
-    }
+        //新增水果資料
+  function addfruit(event){
+    event.preventDefault();
+    const ID = document.getElementById('ID').value;
+    const F_name = document.getElementById('F_name').value;
+    const Supplier = document.getElementById('Supplier').value;
+    const Quantity = document.getElementById('Quantity').value;
+    const Unit = document.getElementById('Unit').value;
+    const Cost = document.getElementById('Cost').value;
+    const TotalValue = document.getElementById('TotalValue').value;
+    const Location = document.getElementById('Location').value;
+    const PurchaseDate = document.getElementById('PurchaseDate').value;
+    const PromotionDate = document.getElementById('PromotionDate').value;
+    const Expiry = document.getElementById('Expiry').value;
+    fetch('/fruit',{method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify({ID, F_name, Supplier, Quantity:Number(Quantity) , Unit, Cost, TotalValue, Location, PurchaseDate, PromotionDate, Expiry}),
+    })
+    .then(response => {
+              if (response.ok) {
+                  location.reload();
+                  location.reload();
+                  location.reload();
+              }   
+              else {
+                  console.error('Failed to delete user');
+              }
+    })
+  }
+  
 
+
+        //還沒做的功能
     function addRecord() {
       alert("執行新增操作");
     }
