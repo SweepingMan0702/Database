@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ABOUT水果</title>
+  <title>ABOUT水果test</title>
   <style>
-    #modal {
+    .modal {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      padding: 20px;
       background-color: #fff;
+      padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 1;
+      z-index: 2;
     }
     table {
       border-collapse: collapse;
@@ -147,46 +147,50 @@
   <button onclick="goBack()" class="goBack">返回查詢頁面</button>
 
     <!-- 新增資料的小視窗 -->
-    <div id="modal">
+    <div id="myModal" class="modal">
+      <p>請輸入水果資料:</p>
       <form method="PUT" action="/fruit" onsubmit="addfruit(event)">
-        <label for="ID">Fruit ID:</label><br>
-        <input type="text" id="ID" name="ID"><br>
-        <br>
-        <label for="F_name">Name:</label><br>
-        <input type="text" id="F_name" name="F_name"><br>
-        <br>
-        <label for="Supplier">Supplier:</label><br>
-        <input type="text" id="Supplier" name="Supplier"><br>
-        <br>
-        <label for="Quantity">Quantity:</label><br>
-        <input type="number" id="Quantity" name="Quantity"><br>
-        <br>
-        <label for="Unit">Unit:</label><br>
-        <input type="text" id="Unit" name="Unit"><br>
-        <br>
-        <label for="Cost">Cost:</label><br>
-        <input type="number" step="0.01" id="Cost" name="Cost"><br>
-        <br>
-        <label for="TotalValue">Total Value:</label><br>
-        <input type="number" step="0.01" id="TotalValue" name="TotalValue"><br>
-        <br>
-        <label for="Location">Location:</label><br>
-        <input type="text" id="Location" name="Location"><br>
-        <br>
-        <label for="PurchaseDate">Purchase Date:</label><br>
-        <input type="date" id="PurchaseDate" name="PurchaseDate"><br>
-        <br>
-        <label for="PromotionDate">Promotion Date:</label><br>
-        <input type="date" id="PromotionDate" name="PromotionDate"><br>
-        <br>
-        <label for="Expiry">Expiry:</label><br>
-        <input type="date" id="Expiry" name="Expiry"><br>
-
-        
-      <button type="submit">更新</button>
-      <button onclick="closeModal()">取消</button>
-    </form>
-    </div>
+      <td>
+      <label for="ID" style="position: relative; left: 0cm;top: 0.2cm;">水果編號</label>
+      <input type="text" id="ID" name="ID" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+    <label for="F_name" style="position: relative; left: 0cm;top: 0.2cm;">水果名稱</label>
+    <input type="text" id="F_name" name="F_name" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="Quantity" style="position: relative; left: 0cm;top: 0.2cm;">現有數量</label>
+      <input type="text" id="Quantity" name="Quantity" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="Unit" style="position: relative; left: 0cm;top: 0.2cm;">單位</label>
+      <input type="text" id="Unit" name="Unit" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="Supplier" style="position: relative; left: 0cm;top: 0.2cm;">水果供應商名稱</label>
+      <input type="text" id="Supplier" name="Supplier" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.1cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="PurchaseDate" style="position: relative; left: 0cm;top: 0.2cm;">進貨日期</label>
+      <input type="date" id="PurchaseDate" name="PurchaseDate" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="PromotionDate" style="position: relative; left: 0cm;top: 0.2cm;">開始促銷日期</label>
+      <input type="date" id="PromotionDate" name="PromotionDate" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="Cost" style="position: relative; left: 0cm;top: 0.2cm;">進貨單價</label>
+      <input type="text" id="Cost" name="Cost" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  <td>
+      <label for="TotalValue" style="position: relative; left: 0cm;top: 0.2cm;">現有價值小計</label>
+      <input type="text" id="TotalValue" name="TotalValue" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+  </td>
+  
+  <button button type="submit" class="blue"style="position: relative; left: 2.5cm;top:0cm;">儲存</button>
+      </form>
+  <button onclick="closeModal()"style="position: relative; left: 3.5cm;top:0cm;">取消</button>
+  </div>
 
   <script>
     //資料顯示
@@ -214,10 +218,10 @@
 
         //新增的按鈕
   function openModal() {
-    document.getElementById('modal').style.display = 'block';
+    document.getElementById('myModal').style.display = 'block';
   }
   function closeModal() {
-    document.getElementById('modal').style.display = 'none';
+    document.getElementById('myModal').style.display = 'none';
   }
 
         //新增水果資料
@@ -230,13 +234,13 @@
     const Unit = document.getElementById('Unit').value;
     const Cost = document.getElementById('Cost').value;
     const TotalValue = document.getElementById('TotalValue').value;
-    const Location = document.getElementById('Location').value;
+    // const Location = document.getElementById('Location').value;
     const PurchaseDate = document.getElementById('PurchaseDate').value;
     const PromotionDate = document.getElementById('PromotionDate').value;
-    const Expiry = document.getElementById('Expiry').value;
+    // const Expiry = document.getElementById('Expiry').value;
     fetch('/fruit',{method: 'POST',
       headers: {'Content-Type': 'application/json',},
-      body: JSON.stringify({ID, F_name, Supplier, Quantity:Number(Quantity) , Unit, Cost, TotalValue, Location, PurchaseDate, PromotionDate, Expiry}),
+      body: JSON.stringify({ID, F_name, Supplier, Quantity:Number(Quantity) , Unit, Cost, TotalValue, PurchaseDate, PromotionDate}),
     })
     .then(response => {
               if (response.ok) {
@@ -287,7 +291,7 @@
     }
 
     function goBack() {
-      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+      window.location.href = "/choose";
     }
   </script>
 

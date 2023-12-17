@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>訂單</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    td {
+      border: none;
+      padding: 8px;
+      text-align: center;
+    }
+    label {
+      position: relative;
+      left: 13.5cm;
+      top: 1cm;
+      margin-bottom: 0.8cm;
+    }
+    input {
+      width: 300px;
+      height: 25px;
+      margin-bottom: 0.7cm;
+      position: relative;
+      left: 9.5cm;
+      top: 1.3cm;
+    }
+    
+    button {
+      top: -193px;
+      margin-left: 0.6cm;
+      position: relative;
+      left: 12.8cm;
+      color: rgb(105, 103, 103);
+      border: none;
+      padding: 9px; /* 新增 padding 屬性 */
+      font-size: 15px; /* 新增 font-size 屬性 */
+    }
+    button.blue {
+      background-color: #6eb5efaa;
+      border: none;
+    }
+    button.red {
+      background-color: #f19c969f;
+      border: none;
+    }
+    button.green {
+      background-color: #98f39ba0;
+      border: none;
+      
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <table>
+    <!-- 第一列 -->
+    <tr>
+        <td>
+            <label for="customerID" style="position: relative; left: -0.5cm;top: 1.5cm;">會員身分證</label>
+            <input type="text" id="customerID" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 1.5cm;">
+          </td>
+        
+    </tr>
+    <!-- 第二列 -->
+    <tr>
+        <td>
+            <label for="fruitID" style="position: relative; left: -0.5cm;top: 1.4cm;">水果編號</label>
+            <input type="text" id="fruitID" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.6cm; top: 1.4cm;">
+          </td>
+        
+    </tr>
+    <!-- 第三列 -->
+    <tr>
+        <td>
+            <label for="fruitName" style="position: relative; left: -0.5cm;top: 1.3cm;">水果名稱</label>
+            <input type="text" id="fruitName" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.6cm; top: 1.3cm;">
+          </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <label for="buynumber" style="position: relative; left: -0.5cm;top: 1.2cm;">購買數量</label>
+            <input type="text" id="buynumber" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.6cm; top: 1.2cm;">
+          </td>
+    </tr>
+    <!-- 第四列 -->
+    <tr>
+        <td>
+            <label for="money" style="position: relative; left: -0.5cm;top: 1.1cm;">單價</label>
+            <input type="text" id="money" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 1.1cm;">
+            </td>
+    <!-- 第五列 -->
+    <tr>
+        <td>
+            <label for="tradedate" style="position: relative; left: 14cm;top: -7.1cm;">交易日期</label>
+            <input type="text" id="tradedate" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 15cm; top: -7.2cm;">
+          </td>
+    </tr>
+    <!-- 第六列 -->
+    <tr>
+        <td>
+            <label for="expected" style="position: relative; left: 14cm;top: -6.5cm;">預計交運日期</label>
+            <input type="text" id="expected" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 14.65cm; top: -6.5cm;">
+          </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="actual" style="position: relative; left: 14cm;top: -5.9cm;">實際交運日期</label>
+            <input type="text" id="actual" style="width: 300px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 14.7cm; top: -5.9cm;">
+          </td>
+      </tr>
+      <tr>
+        <td>
+            <label for="lumpsum" style="position: relative; left: 1.5cm;top: -3.3cm;">總金額</label>
+            <input type="text" id="lumpsum" style="width: 200px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1.6cm; top: -3.4cm;">
+          </td>
+      </tr>
+      <tr>
+        <td>
+            <label for="discountlumpsum" style="position: relative; left: 12.4cm;top: -5.4cm;">折扣後金額</label>
+            <input type="text" id="discountlumpsum" style="width: 200px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 12.6cm; top: -5.4cm;">
+          </td>
+          <tr>
+            <td>
+                <label " style="position: relative; left: 7.5cm;top: -8.8cm;">________________________________________________________________________________________________________________________________</label>
+              </td>
+          </tr>
+      </tr>
+      
+  </table>
+
+  <button onclick="showRecord(currentRecord - 1)">上一筆</button>
+  <button onclick="showRecord(currentRecord + 1)">下一筆</button>
+  <button onclick="openModal()" class="blue">新增</button>
+  <button onclick="deleteRecord()" class="red">刪除</button>
+  <button onclick="searchRecord()">查詢</button>
+  <button onclick="updateRecord()" class="green">修改</button>
+  <button onclick="goBack()" class="goBack">返回查詢頁面</button>
+
+  <!-- 模態框的HTML結構 -->
+  <div id="myModal" class="modal">
+    <p>請輸入訂單資料:</p>
+    <form method="PUT" action="/order" onsubmit="addorder(event)">
+    <td>
+    <label for="MemberID" style="position: relative; left: 0cm;top: 0.2cm;">會員身分證</label>
+    <input type="text" id="MemberID" name="MemberID" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="FruitID" style="position: relative; left: 0cm;top: 0.2cm;">水果編號</label>
+    <input type="text" id="FruitID" name="FruitID" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="FruitName" style="position: relative; left: 0cm;top: 0.2cm;">水果名稱</label>
+    <input type="text" id="FruitName" name="FruitName" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="Quantity" style="position: relative; left: 0cm;top: 0.2cm;">購買數量</label>
+    <input type="text" id="Quantity" name="Quantity" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="UnitPrice" style="position: relative; left: 0cm;top: 0.2cm;">單價</label>
+    <input type="text" id="UnitPrice" name="UnitPrice" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 1cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="TransactionDate" style="position: relative; left: 0cm;top: 0.2cm;">交易日期</label>
+    <input type="date" id="TransactionDate" name="TransactionDate" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="ExpectedDate" style="position: relative; left: 0cm;top: 0.2cm;">預計交運日期</label>
+    <input type="date" id="ExpectedDate" name="ExpectedDate" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="ArrivedDate" style="position: relative; left: 0cm;top: 0.2cm;">實際交運日期</label>
+    <input type="date" id="ArrivedDate" name="ArrivedDate" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="Total" style="position: relative; left: 0cm;top: 0.2cm;">總金額</label>
+    <input type="text" id="Total" name="Total" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<td>
+    <label for="Discounted" style="position: relative; left: 0cm;top: 0.2cm;">折扣後金額</label>
+    <input type="text" id="Discounted" name="Discounted" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 0.3cm; top: 0.2cm;"><br>
+</td>
+<button type ="submit" class="blue" style="position: relative; left: 2.5cm;top:0cm;">儲存</button>
+</form>
+<button onclick="closeModal()" style="position: relative; left: 3.5cm;top:0cm;">取消</button>
+</div>
+
+
+  <script>
+//資料顯示 
+    var currentRecord = 0;
+    var orders = {{ orders | tojson | safe}}
+    // console.log(orders);
+    function showRecord(index) {
+        var order = orders[index];
+        if (order) {
+            var inputs = document.querySelectorAll('input');
+            inputs[0].value = order.MemberID;
+            inputs[1].value = order.FruitID;
+            inputs[2].value = order.FruitName;
+            inputs[3].value = order.Quantity;
+            inputs[4].value = order.UnitPrice;
+            inputs[5].value = order.TransactionDate;
+            inputs[6].value = order.ExpectedDate;
+            inputs[7].value = order.ArrivedDate;
+            inputs[8].value = order.Total;
+            inputs[9].value = order.Discounted;
+            currentRecord = index; // Update the current record index
+        }
+    }
+
+    showRecord(currentRecord);
+
+      //新增訂單
+      function addorder(event){
+      event.preventDefault();
+      const MemberID = document.getElementById('MemberID').value;
+      const FruitID = document.getElementById('FruitID').value;
+      const FruitName = document.getElementById('FruitName').value;
+      const Quantity = document.getElementById('Quantity').value;
+      const UnitPrice = document.getElementById('UnitPrice').value;
+      const TransactionDate = document.getElementById('TransactionDate').value;
+      const ExpectedDate = document.getElementById('ExpectedDate').value;
+      const ArrivedDate = document.getElementById('ArrivedDate').value;
+      const Total = document.getElementById('Total').value;
+      const Discounted = document.getElementById('Discounted').value;
+      fetch('/order',{method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify({FruitID, FruitName, MemberID, Quantity, UnitPrice, Total, Discounted, TransactionDate, ExpectedDate, ArrivedDate}),
+      })
+      .then(response => {
+                if (response.ok) {
+                    location.reload();
+                    location.reload();
+                    location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })
+    }
+
+
+
+    //新增的按鈕
+    function openModal() {
+    document.getElementById('myModal').style.display = 'block';
+  }
+  function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+  }
+
+  //刪除按鈕
+function deleteRecord() {
+      if (orders && orders.length > 0) {
+        var MemberID = orders[currentRecord].MemberID;
+        console.log("MemberID =",MemberID);
+        alert("執行刪除操作");
+
+        fetch(`/order/${MemberID}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              location.reload();
+              // location.reload();
+              // location.reload();
+                }   
+                else {
+                    console.error('Failed to delete user');
+                }
+      })}}
+////////////////////////////////////////
+
+    function searchRecord() {
+      alert("執行查詢操作");
+    }
+
+    function updateRecord() {
+      alert("執行修改操作");
+    }
+
+    function goBack() {
+      window.location.href = "/choose";
+    }
+  </script>
+
+</body>
+</html>

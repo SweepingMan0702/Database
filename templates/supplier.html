@@ -75,7 +75,7 @@
   <table>
     <!-- 第一列 -->
     <tr>
-      <td><label for="vendorID">供應商統一編號</label></td>
+      <td><label for="vendor  ID">供應商統一編號</label></td>
       <td><input type="text" id="vendorID"></td>
     </tr>
     <!-- 第二列 -->
@@ -141,9 +141,9 @@
     <label for="Address" style="position: relative; left: 0.8cm;top: 1.5cm;">地址</label>
     <input type="text" id="Address" name="Address" style="width: 250px; height: 25px; margin-bottom: 0.7cm; position: relative; left: 2cm; top: 1.5cm;"><br>
 </td>
-    <button type="submit" class="blue"style="position: relative; left: 2.5cm;top: -0.5cm;">儲存</button>
-    <button onclick="closeModal()"style="position: relative; left: 3.5cm;top: -0.5cm;">取消</button>
+    <button type="submit" class="blue"style="position: relative; left: 2.5cm;top: -0.5cm;">儲存</button> 
   </form>
+  <button onclick="closeModal()"style="position: relative; left: 3.5cm;top: -0.5cm;">取消</button>
   </div>
 
   <script>
@@ -197,7 +197,7 @@
     document.getElementById('myModal').style.display = 'block';
   }
   function closeModal() {
-    document.getElementById('modal').style.display = 'none';
+    document.getElementById('myModal').style.display = 'none';
   }
 
 
@@ -234,7 +234,7 @@ function deleteRecord() {
 
 
     function goBack() {
-      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+      window.location.href = "/choose";
     }
   </script>
 

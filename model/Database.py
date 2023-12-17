@@ -3,50 +3,7 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 
-
 db = SQLAlchemy()
-
-#水果
-@dataclass
-class Fruit(db.Model):
-
-    ID: str
-    F_name: str
-    Supplier: str
-    Quantity: int
-    Unit: str
-    Cost: float
-    TotalValue: float
-    Location: str
-    PurchaseDate: date
-    PromotionDate: date
-    Expiry: date
-
-    ID = db.Column(db.String(16), primary_key=True)
-    F_name = db.Column(db.String(16))
-    Supplier = db.Column(db.String(16))
-    Quantity = db.Column(db.Integer)
-    Unit = db.Column(db.String(4))
-    Cost = db.Column(db.Numeric(8, 2))
-    TotalValue = db.Column(db.Numeric(8, 2))
-    Location = db.Column(db.String(16))
-    PurchaseDate = db.Column(db.Date)
-    PromotionDate = db.Column(db.Date)
-    Expiry = db.Column(db.Date)
-
-    def __init__(self, ID, F_name, Supplier, Quantity, Unit, Cost, TotalValue,
-                 Location, PurchaseDate, PromotionDate, Expiry):
-        self.ID = ID
-        self.F_name = F_name
-        self.Supplier = Supplier
-        self.Quantity = Quantity
-        self.Unit = Unit
-        self.Cost = Cost
-        self.TotalValue = TotalValue
-        self.Location = Location
-        self.PurchaseDate = PurchaseDate
-        self.PromotionDate = PromotionDate
-        self.Expiry = Expiry
 
 #會員
 @dataclass
@@ -88,6 +45,50 @@ class Member(db.Model):
         self.Photo = Photo
         self.Discount = Discount
 
+#水果
+@dataclass
+class Fruit(db.Model):
+
+    ID: str
+    F_name: str
+    Supplier: str
+    Quantity: int
+    Unit: str
+    Cost: float
+    TotalValue: float
+    # Location: str
+    PurchaseDate: date
+    PromotionDate: date
+    # Expiry: date
+
+    ID = db.Column(db.String(16), primary_key=True)
+    F_name = db.Column(db.String(16))
+    Supplier = db.Column(db.String(16))
+    Quantity = db.Column(db.Integer)
+    Unit = db.Column(db.String(4))
+    Cost = db.Column(db.Numeric(8, 2))
+    TotalValue = db.Column(db.Numeric(8, 2))
+    # Location = db.Column(db.String(16))
+    PurchaseDate = db.Column(db.Date)
+    PromotionDate = db.Column(db.Date)
+    # Expiry = db.Column(db.Date)
+
+    def __init__(self, ID, F_name, Supplier, Quantity, Unit, Cost, TotalValue,
+                  PurchaseDate, PromotionDate):
+        self.ID = ID
+        self.F_name = F_name
+        self.Supplier = Supplier
+        self.Quantity = Quantity
+        self.Unit = Unit
+        self.Cost = Cost
+        self.TotalValue = TotalValue
+        # self.Location = Location
+        self.PurchaseDate = PurchaseDate
+        self.PromotionDate = PromotionDate
+        # self.Expiry = Expiry
+
+
+
 #供應商
 @dataclass
 class Supplier(db.Model):
@@ -112,3 +113,43 @@ class Supplier(db.Model):
         self.Email = Email
         self.Address = Address
         self.Agent = Agent
+
+#訂單
+@dataclass
+class Order(db.Model):
+    FruitID: str    
+    FruitName: str
+    MemberID: str
+    # Supplier: str
+    Quantity: int
+    UnitPrice: float
+    Total: float
+    Discounted: float
+    TransactionDate: date
+    ExpectedDate: date
+    ArrivedDate: date
+
+    FruitID = db.Column(db.String(12))
+    FruitName = db.Column(db.String(16))
+    MemberID = db.Column(db.String(12), primary_key=True)
+    # Supplier = db.Column(db.String(12))
+    Quantity = db.Column(db.Integer)
+    UnitPrice = db.Column(db.Float)
+    Total = db.Column(db.Float)
+    Discounted = db.Column(db.Float)
+    TransactionDate = db.Column(db.Date)
+    ExpectedDate = db.Column(db.Date)
+    ArrivedDate = db.Column(db.Date)
+
+    def __init__(self, FruitID, FruitName, MemberID,Quantity, UnitPrice, Total, Discounted, TransactionDate, ExpectedDate, ArrivedDate):
+        self.FruitID = FruitID
+        self.FruitName = FruitName
+        self.MemberID = MemberID
+        # self.Supplier = Supplier
+        self.Quantity = Quantity
+        self.UnitPrice = UnitPrice
+        self.Total = Total
+        self.Discounted = Discounted
+        self.TransactionDate = TransactionDate
+        self.ExpectedDate = ExpectedDate
+        self.ArrivedDate = ArrivedDate

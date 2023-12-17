@@ -123,10 +123,10 @@
   <button onclick="goBack()" class="goBack">返回查詢頁面</button>
   <canvas id="photoCanvas"></canvas>
   <!-- 搜尋 不知道怎麼做 -->
-  <form >
+  <!-- <form >
     <input type="text" id="serchId">
     <button type="submit"></button>
-  </form>
+  </form> -->
 
 
   <!-- 新增資料的小視窗 -->
@@ -163,8 +163,8 @@
       <input type="text" id="Discount" name="Discount"><br>
       
     <button type="submit">儲存</button>
-    <button onclick="closeModal()">取消</button>
   </form>
+  <button onclick="closeModal()">取消</button>
   </div>
 
 
@@ -175,7 +175,7 @@
   
     //資料顯示 
     var currentRecord = 0;
-    var members = {{ members | tojson | safe}}
+    // var members = {{ members | tojson | safe}}
     console.log(members);
     function showRecord(index) {
         var member = members[index];
@@ -210,8 +210,6 @@
           .then(response => {
             if (response.ok) {
               location.reload();
-              location.reload();
-              location.reload();
                 }   
                 else {
                     console.error('Failed to delete user');
@@ -230,7 +228,7 @@
       const LineStatus = document.getElementById('LineStatus').checked;
       const Address = document.getElementById('Address').value;
       const Age = document.getElementById('Age').value;
-      const Photo = document.getElementById('Photo').value; // 注意：這裡獲取的是文件名，而不是實際的文件內容
+      const Photo = document.getElementById('Photo').value; //binary無法直接轉換成json檔
       const Discount = document.getElementById('Discount').value;
       fetch('/member',{method: 'POST',
         headers: {'Content-Type': 'application/json',},
@@ -238,8 +236,6 @@
       })
       .then(response => {
                 if (response.ok) {
-                    location.reload();
-                    location.reload();
                     location.reload();
                 }   
                 else {
@@ -263,7 +259,7 @@
     // }
 
     function goBack() {
-      window.location.href = "file:///C:/Users/User/OneDrive/%E6%A1%8C%E9%9D%A2/HTML/database/choose.html";
+      window.location.href = "/choose";
     }
     var canvas = document.getElementById('photoCanvas');
     var ctx = canvas.getContext('2d');
